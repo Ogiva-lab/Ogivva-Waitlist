@@ -27,7 +27,7 @@ const Hero = () => {
             whileTap={{ scale: 0.95 }}
             className="bg-[#31BB5E] text-white px-6 py-3 sm:px-8 sm:py-4 rounded-xl font-semibold text-sm sm:text-base hover:bg-[#101010] transition"
           >
-            <a href="/onboarding">Join the waitlist</a>
+            <a href="#waitlist">Join the waitlist</a>
           </motion.button>
         </div>
       </main>
