@@ -18,17 +18,20 @@ const Waitlist = () => {
     setMessage("");
 
     try {
-      await axios.post("https://ogivva-codebackend-production.up.railway.app/v1/waitlist", {
-        email: formData.email,
-        name: formData.name,
-        source: "landing_page", 
-      });
+      await axios.post(
+        "https://ogivva-codebackend-production.up.railway.app/v1/waitlist",
+        {
+          email: formData.email,
+          name: formData.name,
+          source: "landing_page",
+        }
+      );
 
       setMessage("🎉 Check yor email!");
       setFormData({ name: "", email: "" }); // reset inputs
     } catch (error) {
       console.error("Error submitting waitlist:", error);
-      setMessage("❌ Something went wrong. Please try again.");
+      setMessage("Please try again.");
     } finally {
       setLoading(false);
     }
