@@ -1,17 +1,44 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import axios from "axios";
 
 const Waitlist = () => {
-  const [email, setEmail] = useState("");
+  const [formData, setFormData] = useState({ name: "", email: "" });
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Waitlist email submitted:", email);
-    setEmail("");
+    setLoading(true);
+    setMessage("");
+
+    try {
+      await axios.post("https://ogivva-codebackend-production.up.railway.app/v1/waitlist", {
+        email: formData.email,
+        name: formData.name,
+        source: "landing_page", 
+      });
+
+      setMessage("🎉 Check yor email!");
+      setFormData({ name: "", email: "" }); // reset inputs
+    } catch (error) {
+      console.error("Error submitting waitlist:", error);
+      setMessage("❌ Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <section className="bg-black text-center py-16 px-4 sm:px-6 md:px-10" id="waitlist">
+    <section
+      className="bg-black text-center py-16 px-4 sm:px-6 md:px-10"
+      id="waitlist"
+    >
       <h2 className="text-white text-2xl sm:text-3xl md:text-4xl font-bold mb-4 max-w-2xl mx-auto leading-snug">
         Join the Waitlist — Be the First to Spread Kindness
       </h2>
@@ -19,30 +46,47 @@ const Waitlist = () => {
         Sign up now to get early access when Ogivva launches in your city.
       </p>
 
-      {/* Email Form */}
+      {/* Form */}
       <form
         onSubmit={handleSubmit}
-        className="relative w-full max-w-md mx-auto"
+        className="w-full max-w-md mx-auto flex flex-col gap-3"
       >
+        {/* Name input */}
         <input
-          type="email"
-          placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          type="text"
+          name="name"
+          placeholder="Enter your name"
+          value={formData.name}
+          onChange={handleChange}
           required
-          className="w-full px-4 pr-32 py-3 rounded-lg text-white bg-transparent border border-gray-500 placeholder-gray-400 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#31BB5E]"
+          className="w-full px-3 py-2 rounded-md text-white bg-transparent border border-gray-500 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-[#31BB5E]"
         />
 
-        {/* Motion button inside input */}
+        {/* Email input */}
+        <input
+          type="email"
+          name="email"
+          placeholder="Enter your email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+          className="w-full px-3 py-2 rounded-md text-white bg-transparent border border-gray-500 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-[#31BB5E]"
+        />
+
+        {/* Submit button */}
         <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
           type="submit"
-          className="absolute right-1 top-1 bottom-1 px-4 sm:px-6 rounded-lg bg-white text-black font-semibold text-sm sm:text-base transition mr-0.5"
+          disabled={loading}
+          className="w-full px-3 py-2 rounded-md bg-white text-black font-semibold text-sm transition disabled:opacity-50"
         >
-          Join the waitlist
+          {loading ? "Submitting..." : "Join the waitlist"}
         </motion.button>
       </form>
+
+      {/* Success / Error Message */}
+      {message && <p className="mt-4 text-sm text-gray-200">{message}</p>}
     </section>
   );
 };

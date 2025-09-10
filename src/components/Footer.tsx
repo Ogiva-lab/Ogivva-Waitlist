@@ -39,6 +39,14 @@ const Footer = () => {
           <ul className="space-y-2 text-sm text-center sm:text-start">
             <li>
               <a
+                href="https://web.facebook.com/profile.php?id=61580631117608"
+                className="hover:text-white"
+              >
+                Facebook
+              </a>
+            </li>
+            <li>
+              <a
                 href="https://www.instagram.com/ogivva?utm_source=qr&igsh=bnFyam8zeWcxODdl"
                 className="hover:text-white"
               >
