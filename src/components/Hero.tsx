@@ -1,13 +1,10 @@
 import { motion } from "framer-motion";
-import HeroImg from "../assets/heroImg.jpg";
+import HeroImg from "../assets/hero.gif";
 
 const Hero = () => {
   return (
     <div className="bg-[#E4FFED]">
-      <main
-        className="py-16 px-4 sm:py-20 sm:px-10 md:px-14"
-        id="hero"
-      >
+      <main className="py-16 px-4 sm:py-20 sm:px-10 md:px-14" id="hero">
         <div className="flex flex-col justify-center items-center text-center">
           {/* Heading */}
           <h1 className="text-3xl sm:text-5xl md:text-[76px] leading-tight md:leading-[90px] text-[#273B2D] font-bold mb-6 max-w-4xl">
