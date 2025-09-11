@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import HeroImg from "../assets/hero.gif";
+import HeroVid from "../assets/hero-video.mp4";
 
 const Hero = () => {
   return (
@@ -29,13 +29,18 @@ const Hero = () => {
         </div>
       </main>
 
-      {/* Hero image */}
+      {/* Hero video */}
       <section className="w-full">
-        <img
-          src={HeroImg}
-          alt="Hero illustration"
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
           className="w-full object-cover rounded-t-2xl"
-        />
+        >
+          <source src={HeroVid} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
       </section>
     </div>
   );
