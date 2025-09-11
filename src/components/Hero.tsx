@@ -34,7 +34,7 @@ const Hero = () => {
         <img
           src={HeroImg}
           alt="Hero illustration"
-          className="w-full object-cover rounded-t-2xl lg:hidden"
+          className="w-full object-cover rounded-t-2xl"
         />
       </section>
     </div>
