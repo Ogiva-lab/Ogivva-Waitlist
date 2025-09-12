@@ -17,10 +17,8 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
   });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(false); // NEW: track errors
-  const [message, setMessage] = useState("");
+  const [error, setError] = useState(false);
 
-  // Prevent background scrolling while modal is open
   useEffect(() => {
     const original = document.body.style.overflow;
     if (isOpen) document.body.style.overflow = "hidden";
@@ -32,13 +30,12 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    if (error) setError(false); // clear error state if user edits
+    if (error) setError(false);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setMessage("");
     setSuccess(false);
     setError(false);
 
@@ -51,12 +48,10 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
           source: "landing_page_modal",
         }
       );
-      setMessage("🎉 Check your email!");
       setSuccess(true);
       setFormData({ firstName: "", lastName: "", email: "" });
     } catch (err) {
       console.error(err);
-      setMessage("Something went wrong. Please try again.");
       setError(true);
     } finally {
       setLoading(false);
@@ -79,65 +74,49 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.9, opacity: 0, y: 20 }}
             transition={{ type: "spring", stiffness: 260, damping: 24 }}
-            className="bg-white rounded-2xl shadow-2xl w-full max-w-[980px] max-h-[90vh] flex overflow-hidden"
+            className="bg-white rounded-2xl shadow-2xl w-full max-w-[980px] max-h-[90vh] flex flex-col md:flex-row overflow-hidden"
           >
-            {/* Left side */}
-            <div className="bg-[#F4FFF7] flex flex-col text-start w-[45%] mx-auto pt-[52px] pb-8">
-              <div className="px-11">
+            {/* Left side (hidden on mobile) */}
+            <div className="hidden md:flex bg-[#F4FFF7] flex-col text-start md:w-[45%] mx-auto pt-[40px] pb-8 overflow-y-auto">
+              <div className="px-8 md:px-11">
                 <img src={Logo} alt="Ogivva Logo" className="h-8 mb-6" />
-                <h3 className="text-[#101010] text-[28px] font-semibold mb-6 leading-tight">
+                <h3 className="text-[#101010] text-2xl md:text-[28px] font-semibold mb-6 leading-tight">
                   A Gift for every Moment
                 </h3>
 
                 <div className="flex flex-col gap-4">
-                  <div className="flex items-start gap-3">
-                    <CircleCheck className="w-5 h-5 text-[#31BB5E] mt-1 flex-shrink-0" />
-                    <div>
-                      <p className="text-[#101010] text-lg font-semibold">
-                        Receiver Creates a “Moment”
-                      </p>
-                      <p className="text-[#818080] text-sm mt-1 leading-relaxed font-medium">
-                        Curates wishlists of the things they truly want, share
-                        moment with friends, family, or keep it public for
-                        anyone to surprise them.
-                      </p>
+                  {[
+                    {
+                      title: "Receiver Creates a “Moment”",
+                      desc: "Curates wishlists of the things they truly want, share moment with friends, family, or keep it public for anyone to surprise them.",
+                    },
+                    {
+                      title: "Gifter Chooses & Sends",
+                      desc: "Discover moments shared publicly or receive them directly from loved ones. Pick gifts from trusted vendors and decide if you want to reveal yourself or stay anonymous.Discover moments shared publicly or receive them directly...",
+                    },
+                    {
+                      title: "Vendor Delivers the Experience",
+                      desc: "List your products or services on Ogivva. Every gift purchased supports local and small businesses while delivering joy to the receiver.",
+                    },
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-3">
+                      <CircleCheck className="w-5 h-5 text-[#31BB5E] mt-1 flex-shrink-0" />
+                      <div>
+                        <p className="text-[#101010] text-base md:text-lg font-semibold">
+                          {item.title}
+                        </p>
+                        <p className="text-[#818080] text-sm mt-1 leading-relaxed font-medium">
+                          {item.desc}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <CircleCheck className="w-5 h-5 text-[#31BB5E] mt-1 flex-shrink-0" />
-                    <div>
-                      <p className="text-[#101010] text-lg font-semibold">
-                        Gifter Chooses & Sends
-                      </p>
-                      <p className="text-[#818080] text-sm mt-1 leading-relaxed font-medium">
-                        Discover moments shared publicly or receive them
-                        directly from loved ones. Pick gifts from trusted
-                        vendors and decide if you want to reveal yourself or
-                        stay anonymous.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <CircleCheck className="w-5 h-5 text-[#31BB5E] mt-1 flex-shrink-0" />
-                    <div>
-                      <p className="text-[#101010] text-lg font-semibold">
-                        Vendor Delivers the Experience
-                      </p>
-                      <p className="text-[#818080] text-sm mt-1 leading-relaxed font-medium">
-                        List your products or services on Ogivva. Every gift
-                        purchased supports local and small businesses while
-                        delivering joy to the receiver.
-                      </p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>
 
             {/* Right side */}
-            <div className="w-[55%] flex flex-col h-full relative pt-[52px] pb-8">
+            <div className="w-full md:w-[55%] flex flex-col h-full relative pt-[40px] pb-8 overflow-y-auto">
               {/* Close button */}
               <button
                 onClick={onClose}
@@ -150,11 +129,8 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
               </button>
 
               {/* Content wrapper */}
-              <div className="flex flex-col justify-start h-full px-8 md:px-10">
-                <h2
-                  id="waitlist-heading"
-                  className="text-2xl md:text-4xl font-bold text-[#101010] mb-3 leading-tight text-left"
-                >
+              <div className="flex flex-col justify-start h-full px-6 md:px-10">
+                <h2 className="text-2xl md:text-4xl font-bold text-[#101010] mb-3 leading-tight text-left">
                   Join the Waitlist — Be the First to Spread Kindness
                 </h2>
 
@@ -165,65 +141,36 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
 
                 {/* Form */}
                 <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                  {/* First Name */}
-                  <div className="flex flex-col text-left">
-                    <label
-                      htmlFor="firstName"
-                      className="text-[#101010] text-sm font-semibold mb-1"
-                    >
-                      First Name
-                    </label>
-                    <input
-                      id="firstName"
-                      type="text"
-                      name="firstName"
-                      placeholder="Enter your first name"
-                      value={formData.firstName}
-                      onChange={handleChange}
-                      required
-                      className="bg-[#F6F6F6] text-[#818080] font-medium w-full px-4 py-3 rounded-lg border border-gray-200 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#E6F7EE]"
-                    />
-                  </div>
-
-                  {/* Last Name */}
-                  <div className="flex flex-col text-left">
-                    <label
-                      htmlFor="lastName"
-                      className="text-[#101010] text-sm font-semibold mb-1"
-                    >
-                      Last Name
-                    </label>
-                    <input
-                      id="lastName"
-                      type="text"
-                      name="lastName"
-                      placeholder="Enter your last name"
-                      value={formData.lastName}
-                      onChange={handleChange}
-                      required
-                      className="bg-[#F6F6F6] text-[#818080] font-medium w-full px-4 py-3 rounded-lg border border-gray-200 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#E6F7EE]"
-                    />
-                  </div>
-
-                  {/* Email */}
-                  <div className="flex flex-col text-left">
-                    <label
-                      htmlFor="email"
-                      className="text-[#101010] text-sm font-semibold mb-1"
-                    >
-                      Email Address
-                    </label>
-                    <input
-                      id="email"
-                      type="email"
-                      name="email"
-                      placeholder="Enter your email address"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      className="bg-[#F6F6F6] text-[#818080] font-medium w-full px-4 py-3 rounded-lg border border-gray-200 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#E6F7EE]"
-                    />
-                  </div>
+                  {["firstName", "lastName", "email"].map((field, idx) => (
+                    <div key={idx} className="flex flex-col text-left">
+                      <label
+                        htmlFor={field}
+                        className="text-[#101010] text-sm font-semibold mb-1"
+                      >
+                        {field === "firstName"
+                          ? "First Name"
+                          : field === "lastName"
+                          ? "Last Name"
+                          : "Email Address"}
+                      </label>
+                      <input
+                        id={field}
+                        type={field === "email" ? "email" : "text"}
+                        name={field}
+                        placeholder={
+                          field === "firstName"
+                            ? "Enter your first name"
+                            : field === "lastName"
+                            ? "Enter your last name"
+                            : "Enter your email address"
+                        }
+                        value={(formData as any)[field]}
+                        onChange={handleChange}
+                        required
+                        className="bg-[#F6F6F6] text-[#818080] font-medium w-full px-4 py-3 rounded-lg border border-gray-200 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#E6F7EE]"
+                      />
+                    </div>
+                  ))}
 
                   {/* Button States */}
                   {success ? (
@@ -253,12 +200,6 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
                     </motion.button>
                   )}
                 </form>
-
-                {message && (
-                  <p className="mt-5 text-sm text-gray-600 text-left">
-                    {message}
-                  </p>
-                )}
               </div>
             </div>
           </motion.div>
