@@ -1,7 +1,11 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
 import HeroVid from "../assets/hero-video.mp4";
+import WaitlistButton from "./WaitlistButton";
+import WaitlistModal from "./WaitlistModal";
 
 const Hero = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div className="bg-[#E4FFED]">
       <main className="py-16 px-4 sm:py-20 sm:px-10 md:px-14" id="hero">
@@ -19,13 +23,14 @@ const Hero = () => {
           </p>
 
           {/* CTA button */}
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-[#31BB5E] text-white px-6 py-3 sm:px-8 sm:py-4 rounded-xl font-semibold text-sm sm:text-base hover:bg-[#101010] transition"
-          >
-            <a href="#waitlist">Join the waitlist</a>
-          </motion.button>
+          <WaitlistButton
+            onClick={() => setIsModalOpen(true)}
+            variant="primary"
+          />
+          <WaitlistModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+          />
         </div>
       </main>
 
