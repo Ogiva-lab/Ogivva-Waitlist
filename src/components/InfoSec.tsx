@@ -1,5 +1,5 @@
 // import { motion } from "framer-motion";
-import { Edit05 } from "@untitledui/icons";
+import { Target04 } from "@untitledui/icons";
 import AboutImg from "../assets/AboutImg.jpg";
 
 interface InfoItem {
@@ -59,7 +59,7 @@ const InfoSection: React.FC<InfoSectionProps> = ({
                 index !== items.length - 1 ? "border-b" : ""
               } py-7`}
             >
-              <Edit05 className="h-6 w-6 text-[#101010]" />
+              <Target04 className="h-6 w-6 text-red-500" />
               <div className="flex flex-col">
                 <h4 className="font-semibold text-base sm:text-lg">
                   {item.title}
