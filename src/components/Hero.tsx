@@ -1,5 +1,5 @@
 import { useState } from "react";
-import HeroVid from "../assets/hero-video.mp4";
+import HeroGif from "../assets/hero.gif";
 import WaitlistButton from "./WaitlistButton";
 import WaitlistModal from "./WaitlistModal";
 
@@ -34,18 +34,13 @@ const Hero = () => {
         </div>
       </main>
 
-      {/* Hero video */}
+      {/* Hero image */}
       <section className="w-full">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full object-cover rounded-t-2xl"
-        >
-          <source src={HeroVid} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        <img
+          src={HeroGif}
+          alt="Hero illustration"
+          className="w-full object-cover rounded-t-2xl lg:hidden"
+        />
       </section>
     </div>
   );
