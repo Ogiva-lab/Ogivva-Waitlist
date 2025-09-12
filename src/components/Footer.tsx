@@ -40,6 +40,8 @@ const Footer = () => {
             <li>
               <a
                 href="https://web.facebook.com/profile.php?id=61580631117608"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hover:text-white"
               >
                 Facebook
@@ -48,6 +50,8 @@ const Footer = () => {
             <li>
               <a
                 href="https://www.instagram.com/ogivva?utm_source=qr&igsh=bnFyam8zeWcxODdl"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hover:text-white"
               >
                 Instagram
@@ -56,13 +60,20 @@ const Footer = () => {
             <li>
               <a
                 href="https://www.tiktok.com/@ogivva_?is_from_webapp=1&sender_device=pc"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hover:text-white"
               >
                 Tiktok
               </a>
             </li>
             <li>
-              <a href="https://x.com/Useogivva?t=BFgS4OXu0nvxHZMDK-_lTw&s=08" className="hover:text-white">
+              <a
+                href="https://x.com/Useogivva?t=BFgS4OXu0nvxHZMDK-_lTw&s=08"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white"
+              >
                 Twitter X
               </a>
             </li>
@@ -76,12 +87,22 @@ const Footer = () => {
           </h4>
           <ul className="space-y-2 text-sm text-center sm:text-start">
             <li>
-              <a href="/terms" className="hover:text-white">
+              <a
+                href="/terms"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white"
+              >
                 Terms of service
               </a>
             </li>
             <li>
-              <a href="/privacy" className="hover:text-white">
+              <a
+                href="/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white"
+              >
                 Privacy policy
               </a>
             </li>
