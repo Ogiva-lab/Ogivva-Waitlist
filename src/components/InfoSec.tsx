@@ -1,5 +1,5 @@
 // import { motion } from "framer-motion";
-import { Target04 } from "@untitledui/icons";
+import BullsEye from "../assets/bullsEyeIcon.svg";
 import AboutImg from "../assets/AboutImg.jpg";
 
 interface InfoItem {
@@ -55,11 +55,11 @@ const InfoSection: React.FC<InfoSectionProps> = ({
           {items.map((item, index) => (
             <div
               key={index}
-              className={`flex gap-5 ${
+              className={`flex gap-5 items-start${
                 index !== items.length - 1 ? "border-b" : ""
               } py-7`}
             >
-              <Target04 className="h-6 w-6 text-red-500" />
+              <img src={BullsEye} className="h-6 w-6"/>
               <div className="flex flex-col">
                 <h4 className="font-semibold text-base sm:text-lg">
                   {item.title}
